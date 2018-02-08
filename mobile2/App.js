@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'skyblue',
   },
   buttonContainer: {
     flexDirection: 'row',

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Button, AsyncStorage } from 'react-native';
 import axios from 'axios';
-import { Content } from './index';
 
 class SignUp extends Component {
   constructor(props) {
@@ -22,7 +21,7 @@ class SignUp extends Component {
           onChangeText={password => this.setState({ password })}
         />
         <Button
-          title="Submit"
+          title="Sign Up"
           onPress={() => {
             axios
               .post('https://mobile-server-ii.herokuapp.com/users', {
