@@ -1,47 +1,60 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-import { SignUp, SignIn, Contents } from './components/index';
+import styles from './components/Styles';
 
-const Home = props => {
-  const { navigate } = props.navigation;
-  return (
-    <View style={container}>
-      <View style={buttonContainer}>
-        <Button style={button} title="Sign Up" onPress={() => navigate('SignUp')} />
-        <Button style={button} title="Sign In" onPress={() => navigate('SignIn')} />
+import { Contents, Headers, SignIn, SignUp } from './components/index';
+
+class Home extends Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.formHeader}>This is The Home Page</Text>
+        <Text style={styles.formText}>Select an Option from Below</Text>
+        <View style={styles.buttonWrapper}>
+          <Button style={styles.button} title="Sign In" onPress={() => this.props.navigation.navigate('SignIn')} />
+          <Button style={styles.button} title="Sign Up" onPress={() => this.props.navigation.navigate('SignUp')} />
+          <Button style={styles.button} title="Contents" onPress={() => this.props.navigation.navigate('Contents')} />
+        </View>
       </View>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'skyblue',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    width: '80%',
-    justifyContent: 'space-around',
-  },
-  button: {
-    marginRight: 10,
-  },
-});
+    );
+  }
+}
 
 const Routes = StackNavigator(
   {
-    Home: { screen: Home },
-    SignUp: { screen: SignUp },
-    SignIn: { screen: SignIn },
-    Contents: { screen: Contents },
+    Home: {
+      screen: Home,
+      navigationOptions: {
+        headerTitle: <Headers.HomeHeader />,
+      },
+    },
+    SignIn: {
+      screen: SignIn,
+      navigationOptions: {
+        headerTitle: <Headers.SignInHeader />,
+      },
+    },
+    SignUp: {
+      screen: SignUp,
+      navigationOptions: {
+        headerTitle: <Headers.SignUpHeader />,
+      },
+    },
+    Contents: {
+      screen: Contents,
+      navigationOptions: {
+        headerTitle: <Headers.ContentsHeader />,
+      },
+    },
   },
   {
+    // This Hides the Nav Bar Ontop
     headerMode: 'none',
     navigationOptions: {
       headerVisible: false,
@@ -49,6 +62,8 @@ const Routes = StackNavigator(
   }
 );
 
-const { container, button, buttonContainer } = styles;
-
-export default Routes;
+export default class App extends Component {
+  render() {
+    return <Routes />;
+  }
+}

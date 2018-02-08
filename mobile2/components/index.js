@@ -1,5 +1,6 @@
-import SignUp from './SignUp';
-import SignIn from './SignIn';
-import Contents from './Contents';
+import Contents from './Contents/Contents';
+import Headers from './Headers/Headers';
+import SignIn from './SignIn/SignIn';
+import SignUp from './SignUp/SignUp';
 
-export { SignUp, SignIn, Contents };
+export { Contents, Headers, SignIn, SignUp };
