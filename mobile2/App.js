@@ -1,13 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { SignUp } from './components/index';
+
+import { SignUp, SignIn, Contents } from './components/index';
 
 const Home = props => {
-  const { navigate } = props.navigate;
+  const { navigate } = props.navigation;
   return (
     <View style={container}>
-      <Button title="Sign Up" onPress={() => navigate('SignUp')} />
+      <View style={buttonContainer}>
+        <Button style={button} title="Sign Up" onPress={() => navigate('SignUp')} />
+        <Button style={button} title="Sign In" onPress={() => navigate('SignIn')} />
+      </View>
     </View>
   );
 };
@@ -19,10 +23,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    width: '80%',
+    justifyContent: 'space-around',
+  },
+  button: {
+    marginRight: 10,
+  },
 });
 
-const Routes = StackNavigator({
-  SignUp: { screen: SignUp },
-});
+const Routes = StackNavigator(
+  {
+    Home: { screen: Home },
+    SignUp: { screen: SignUp },
+    SignIn: { screen: SignIn },
+    Contents: { screen: Contents },
+  },
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    },
+  }
+);
 
-const { container } = styles;
+const { container, button, buttonContainer } = styles;
+
+export default Routes;

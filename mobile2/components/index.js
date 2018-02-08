@@ -1,3 +1,5 @@
 import SignUp from './SignUp';
+import SignIn from './SignIn';
+import Contents from './Contents';
 
-export default { SignUp };
+export { SignUp, SignIn, Contents };

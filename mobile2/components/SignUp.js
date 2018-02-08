@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, AsyncStorage } from 'react-native';
+import axios from 'axios';
+import { Content } from './index';
 
 class SignUp extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
@@ -12,13 +14,55 @@ class SignUp extends Component {
 
   render() {
     return (
-      <View>
-        <TextInput>Email:</TextInput>
+      <View style={inputContainer}>
+        <TextInput style={inputText} placeholder="enter email:" onChangeText={email => this.setState({ email })} />
+        <TextInput
+          style={inputText}
+          placeholder="enter password:"
+          onChangeText={password => this.setState({ password })}
+        />
+        <Button
+          title="Submit"
+          onPress={() => {
+            axios
+              .post('https://mobile-server-ii.herokuapp.com/users', {
+                email: this.state.email,
+                password: this.state.password,
+              })
+              .then(res => {
+                AsyncStorage.setItem('token', res.data.token).then(() => {
+                  this.props.navigation.navigate('Contents');
+                });
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }}
+        />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  inputContainer: {
+    flex: 1,
 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputText: {
+    fontSize: 20,
+    height: 40,
+    width: 300,
+    borderColor: 'lightblue',
+    borderWidth: 3,
+    borderRadius: 10,
+  },
+  textLabel: {
+    fontSize: 24,
+  },
+});
+
+const { inputContainer, inputText, textLabel } = styles;
 export default SignUp;
