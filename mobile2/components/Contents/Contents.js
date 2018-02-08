@@ -16,11 +16,9 @@ class Contents extends Component {
     AsyncStorage.getItem('JWT', (err, result) => {
       if (err) console.log(err);
       JWT = String(result);
-      console.log(JWT);
       axios
         .get(postUrl, { headers: { authorization: JWT } })
         .then(res => {
-          console.log(res.data);
           this.setState({ users: res.data });
         })
         .catch(err => {});
